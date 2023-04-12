@@ -5,18 +5,16 @@ import UIKit
 @MainActor
 final class NewsManager: ObservableObject {
   
+  // from Info.plist --> value set to $(API_KEY), reading value from Config.xcconfig
   private let newsApiKey = Bundle.main.infoDictionary?["NewsApiKey"] as! String
   
   @Published var news = [NewsModel]()
   
-  
-  static let defaultImageUrl = "https://thumbs.dreamstime.com/b/news-newspapers-folded-stacked-word-wooden-block-puzzle-dice-concept-newspaper-media-press-release-42301371.jpg"
-  
   init() {
-    loadNews(country: "gb")             
+    loadNews(country: "us")         // "us" has images
   }
   
- 
+  // load news for specific country code ( https://newsapi.org/docs/endpoints/sources )
   func loadNews(country: String) {
     Task {
       do {
